@@ -9,14 +9,16 @@
 
 import pandas as pd
 sal = pd.read_csv('Salaries.csv')
-sal.head()
+# sal.head()
 # sal.info()
-average_basepay = sal['BasePay'].mean(axis=0)
-highest_overtimepay = sal['OvertimePay'].max(axis=0)
-jobtitle_JOSEPH = sal.loc[sal['EmployeeName']== 'JOSEPH DRISCOLL','JobTitle']
-salary_JOSEPH = sal.loc[sal['EmployeeName']== 'JOSEPH DRISCOLL','TotalPayBenefits']
-highest_paid_rate = sal['TotalPayBenefits'].max(axis=0)
-highest_paid_person = sal.loc[sal['TotalPayBenefits']== highest_paid_rate ,'EmployeeName']
+# average_basepay = sal['BasePay'].mean(axis=0)
+# highest_overtimepay = sal['OvertimePay'].max(axis=0)
+# # jobtitle_JOSEPH = sal.loc[sal['EmployeeName']== 'JOSEPH DRISCOLL','JobTitle']
+# jobtitle_JOSEPH = sal[sal['EmployeeName']== 'JOSEPH DRISCOLL','JobTitle']
+# # salary_JOSEPH = sal.loc[sal['EmployeeName']== 'JOSEPH DRISCOLL','TotalPayBenefits']
+# salary_JOSEPH = sal[sal['EmployeeName']== 'JOSEPH DRISCOLL','TotalPayBenefits']
+# highest_paid_rate = sal['TotalPayBenefits'].max(axis=0)
+# highest_paid_person = sal.loc[sal['TotalPayBenefits']== highest_paid_rate ,'EmployeeName']
 
 # What is the name of lowest paid person (including benefits)? Do you notice something strange about how much he or she is paid?
 # What was the average (mean) BasePay of all employees per year? (2011-2014)?
@@ -28,5 +30,14 @@ highest_paid_person = sal.loc[sal['TotalPayBenefits']== highest_paid_rate ,'Empl
 
 lowest_TotalPayBenefits = sal['TotalPayBenefits'].min(axis=0)
 # tiền lương âm
-average_basepay2011 = sal.loc[sal['Year']=='2011','BasePay'].mean(axis=0)
-print(average_basepay2011)
+# for i in range(2011, 2015):
+#     average_basepay = sal[sal['Year']==i]['BasePay'].mean()
+#     print(average_basepay)
+sal.groupby('Year')['BasePay'].mean()
+sal['JobTitle'].value_counts().head(10)
+sal['JobTitle'].value_counts(ascending=True).head(10)
+sal['JobTitle'].value_counts().tail(10)
+jobs=sal[sal['Year']==2013]['JobTitle'].value_counts()
+sum(jobs==1)
+jobs[jobs ==1].count()
+sum(sal['JobTitle'].str.contains('Chief'))
